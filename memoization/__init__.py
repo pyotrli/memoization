@@ -1,11 +1,27 @@
 from time import time
 import uuid
 
+# Creates a function that can memoize a result of a function
+# Memoized (cached) results will be deleted if they exceed their timeout (millisec)
+# If resolver is set to True, the memoize function will:
+#  - clear any cached results that have timed out
+#  - generate a uuid based on all arguments given to the original function
+#  - check if this result is already cached and if so, return the cached result
+#  - if result is not cached, cache it with uuid as the key
+#  - return the result
+
 # Create cache for storing memoized results
 cache = {}
 
 
 def memoize(func, resolver=False, timeout=-1):
+    """
+
+    :param func: function the results of which should be memoized
+    :param resolver: set to True to memoize results. Set to False to disable memoization
+    :param timeout: milliseconds after which memoized results should time out and be deleted from cache
+    :return: result of func
+    """
     if resolver is True:
         def resolver(*args):
             # Delete all timed-out values

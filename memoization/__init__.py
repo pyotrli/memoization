@@ -1,19 +1,18 @@
 from time import time
 import uuid
 
+
 # Generate a uuid based on all function arguments
 # Generates the same uuid for the same input
 def generate_uuid(*args):
     key = ""
     for arg in args:
-        key = key + repr(arg)
-    result = uuid.uuid3(uuid.NAMESPACE_DNS, key)
-    return result
+        key += repr(arg)
+    return uuid.uuid3(uuid.NAMESPACE_DNS, key)
 
 
 def millisec_timestamp_now():
-    milliseconds = int(round(time() * 1000))
-    return milliseconds
+    return int(round(time() * 1000))
 
 
 # Deletes all cache values which have timed out
